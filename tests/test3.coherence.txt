@@ -1,0 +1,16 @@
+// Test 3: Coherence scenario - snooping initiated MESI state transitions
+// ADDRESS_MEMWRITE_L1ID_DATA_CYCLE
+// Scenario 1 (Cycle 0): Both L1s read same address (both should reach SHARED state)
+// Concurrent reads on same cycle to test snoop response
+00000200_0_0_00000000_0
+00000200_0_1_00000000_0
+// Scenario 2 (Cycle 1-3): L1-0 reads, L1-1 writes (upgrading invalidates others)
+// Sequential to show state transition
+00000204_0_0_00000000_1
+00000204_1_1_FFFFFFFF_2
+00000204_0_0_00000000_3
+// Scenario 3 (Cycle 4-5): Multi-L1 coherence - read-then-write pattern
+// Both read concurrently, then L1-0 writes (invalidates L1-1's copy)
+00000208_0_0_00000000_4
+00000208_0_1_00000000_4
+00000208_1_0_99999999_5

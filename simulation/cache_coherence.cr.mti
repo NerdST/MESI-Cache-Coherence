@@ -1,0 +1,15 @@
+/mnt/shared/sangeeth/Documents/RPI/Semester8/ECSE-4780/projects/project1/src/dram.sv {1 {vlog -work work -sv -stats=none /mnt/shared/sangeeth/Documents/RPI/Semester8/ECSE-4780/projects/project1/src/dram.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module dram
+
+Top level modules:
+	dram
+
+} {} {}} /mnt/shared/sangeeth/Documents/RPI/Semester8/ECSE-4780/projects/project1/src/Arbiter.sv {1 {vlog -work work -sv -stats=none /mnt/shared/sangeeth/Documents/RPI/Semester8/ECSE-4780/projects/project1/src/Arbiter.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module Arbiter
+
+Top level modules:
+	Arbiter
+
+} {} {}}

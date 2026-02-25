@@ -1,0 +1,8 @@
+// Test 2: Single writes with 32-bit data
+// Each write completes before next one starts (different cycles)
+// ADDRESS_MEMWRITE_L1ID_DATA_CYCLE
+00000010_1_0_DEADBEEF_0
+00000014_1_0_CAFEBABE_1
+00000020_1_1_AAAABBBB_2
+00000024_1_2_CCCCDDDD_3
+00000028_1_3_EEEEAAAA_4

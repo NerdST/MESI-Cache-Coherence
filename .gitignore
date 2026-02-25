@@ -1,0 +1,29 @@
+# Quartus generated outputs
+db/
+output_files/
+incremental_db/
+*.rpt
+*.summary
+*.smsg
+
+# Quartus user/session files
+*.qws
+*.qws.settings
+*.sopcinfo
+*.qpf.bak
+*.qsf.bak
+
+# ModelSim/Questa generated outputs
+work/
+simulation/work/
+*.wlf
+transcript
+simulation/transcript
+
+# Backup/temp files
+*.bak
+*.jou
+*.log
+
+# Optional report CAD artifacts
+report/CacheHierarchy/

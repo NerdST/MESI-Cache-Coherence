@@ -1,0 +1,21 @@
+// Test 5: Cache line eviction and write-back
+// ADDRESS_MEMWRITE_L1ID_DATA_CYCLE
+// Addresses with same index but different tags (direct-mapped cache)
+// This tests write-back buffer and dirty line eviction
+// SEQUENTIAL execution: each write must complete before next starts
+
+// Step 1 (Cycle 0): Write to address 0x00000000
+00000000_1_0_AAAAAAAA_0
+
+// Step 2 (Cycle 1): Write to address 0x00002000 (different tag, same index, evicts prev)
+00002000_1_0_BBBBBBBB_1
+
+// Step 3 (Cycle 2): Write to address 0x00004000 (evicts second line)
+00004000_1_0_CCCCCCCC_2
+
+// Step 4 (Cycle 3): Read from address 0x00000000 (should miss, line was evicted)
+00000000_0_0_00000000_3
+
+// Step 5 (Cycle 4-5): Test eviction with different L1s
+00006000_1_1_DDDDDDDD_4
+00008000_1_1_EEEEEEEE_5
