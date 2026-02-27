@@ -19,11 +19,23 @@ simulation/work/
 *.wlf
 transcript
 simulation/transcript
+simulation/cache_coherence.cr.mti
 
 # Backup/temp files
 *.bak
 *.jou
 *.log
+
+# Latex generated outputs
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
 
 # Optional report CAD artifacts
 report/CacheHierarchy/

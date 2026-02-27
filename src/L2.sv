@@ -83,26 +83,39 @@ module L2(
     // L2 responds passively to bus transactions (BusRd/BusRdX/BusUpgr)
     if (bus_txn_active) begin
       if (BusOp === 3'b000 || BusOp === 3'b001) begin // BusRd or BusRdX
+        logic other_cache_responding;
+        other_cache_responding = (BusShared === 1'b1);
+
         // If we already launched a DRAM read for this transaction, wait for it
         if (dram_pending && (dram_pending_busadr == {BusAdr[31:4], 4'b0000})) begin
           if (dram_ready) begin
-            data_out = $isunknown(dram_rdata) ? 128'h0 : dram_rdata;
-            data_oe = 1'b1;
+            if (!other_cache_responding) begin
+              data_out = $isunknown(dram_rdata) ? 128'h0 : dram_rdata;
+              data_oe = 1'b1;
+            end
             busvalid_out = 1'b1;
             busvalid_oe = 1'b1;
           end
         end else begin
           // No pending DRAM fetch: try L2 hit first
           if (L2_SRAM[bus_index].valid && L2_SRAM[bus_index].tag == bus_tag) begin
-            data_out = $isunknown(L2_SRAM[bus_index].data) ? 128'h0 : L2_SRAM[bus_index].data;
-            data_oe = 1'b1;
+            if (!other_cache_responding) begin
+              data_out = $isunknown(L2_SRAM[bus_index].data) ? 128'h0 : L2_SRAM[bus_index].data;
+              data_oe = 1'b1;
+            end
             busvalid_out = 1'b1;
             busvalid_oe = 1'b1;
           end else begin
             // L2 miss: fetch from DRAM backing store
-            dram_valid = 1'b1;
-            dram_write = 1'b0;
-            dram_addr = block_word_addr;
+            if (!other_cache_responding) begin
+              dram_valid = 1'b1;
+              dram_write = 1'b0;
+              dram_addr = block_word_addr;
+            end else begin
+              // Another L1 is supplying data this cycle; acknowledge bus transaction
+              busvalid_out = 1'b1;
+              busvalid_oe = 1'b1;
+            end
           end
         end
 
